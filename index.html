@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#101912" />
+  <title>THE LAST REMEDY — 1340</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main id="game-shell">
+    <canvas id="world" aria-label="3D medieval world"></canvas>
+    <div class="vignette"></div>
+    <div class="grain"></div>
+
+    <section id="title-screen" class="title-screen">
+      <div class="title-card">
+        <div class="eyebrow"><span class="rule"></span> EUROPE · 1340 <span class="rule"></span></div>
+        <div class="title-mark">✦</div>
+        <h1>THE LAST<br><em>REMEDY</em></h1>
+        <p class="title-copy">The black fever travels faster than the bells.<br>Find what the old texts say can stop it.</p>
+        <button id="begin-btn" class="primary-btn">BEGIN YOUR JOURNEY <span>↗</span></button>
+        <div class="title-foot"><span>AN EXPLORER'S TALE</span><span>WASD TO WALK · E TO INTERACT</span></div>
+      </div>
+      <div class="title-location"><span class="pin">⌖</span> THE HOLLOWMERE VALLEY <span class="loc-line"></span> DAY 01</div>
+    </section>
+
+    <header class="topbar hud hidden" id="topbar">
+      <div class="brand"><span class="brand-icon">✦</span><div><b>THE LAST REMEDY</b><small>EUROPE · 1340</small></div></div>
+      <div class="day-pill"><span class="sun-icon">☼</span> DAY <b id="day-count">01</b><span class="pill-divider"></span><span id="weather-label">MISTY MORNING</span></div>
+      <button class="sound-btn" id="sound-btn" title="Toggle ambience">♫ <span id="sound-label">SOUND ON</span></button>
+    </header>
+
+    <aside class="quest-panel hud hidden" id="quest-panel">
+      <div class="panel-kicker"><span class="live-dot"></span> JOURNAL <span class="journal-number">01</span></div>
+      <h2 id="quest-title">A cure for the<br>black fever</h2>
+      <p class="quest-text" id="quest-text">The village healer believes silverleaf can slow the sickness. Find 3 sprigs in the valley, then bring them to her.</p>
+      <div class="quest-progress"><div class="progress-label"><span id="progress-label">SILVERLEAF</span><b id="progress-count">0 / 3</b></div><div class="progress-track"><i id="progress-fill"></i></div></div>
+      <div class="quest-divider"></div>
+      <div class="objective-row"><span class="objective-icon">⌖</span><div><small>NEXT DESTINATION</small><b id="destination-label">Hollowmere Village</b></div></div>
+      <button id="journal-toggle" class="journal-toggle">VIEW FIELD NOTES <span>↗</span></button>
+    </aside>
+
+    <div class="location-toast hud hidden" id="location-toast"><span>⌖</span><div><small>YOU DISCOVERED</small><b id="toast-name">Hollowmere Village</b></div></div>
+
+    <div class="compass hud hidden" id="compass"><span class="compass-n">N</span><span class="compass-line"></span><span id="compass-dir">E</span></div>
+
+    <aside class="map-card hud hidden" id="map-card">
+      <div class="map-head"><span>FIELD MAP</span><span class="map-expand">✥</span></div>
+      <canvas id="minimap" width="180" height="142"></canvas>
+      <div class="map-legend"><span><i class="legend-you"></i> YOU</span><span><i class="legend-mark"></i> WAYPOINT</span></div>
+    </aside>
+
+    <div class="interaction hud hidden" id="interaction"><span class="keycap">E</span><span id="interaction-text">GATHER SILVERLEAF</span></div>
+    <div class="toast hud hidden" id="item-toast"><span class="toast-symbol">✦</span><span id="item-toast-text">Silverleaf gathered</span></div>
+    <div class="notification hud hidden" id="notification"></div>
+
+    <footer class="bottom-hud hud hidden" id="bottom-hud">
+      <div class="health-wrap"><div class="health-icon">♥</div><div class="health-meta"><small>YOUR HEALTH</small><div class="health-track"><i id="health-fill"></i></div></div><b id="health-value">100</b></div>
+      <div class="controls-hint"><span class="keyset"><i>W</i><span><i>A</i><i>S</i><i>D</i></span></span><span>MOVE</span><span class="hint-sep"></span><kbd>E</kbd><span>INTERACT</span><span class="hint-sep"></span><kbd>SHIFT</kbd><span>RUN</span></div>
+      <div class="inventory"><span class="inventory-icon">♧</span><div><small>FIELD KIT</small><b id="inventory-count">0 <span>HERBS</span></b></div></div>
+    </footer>
+
+    <div class="touch-controls hud hidden" id="touch-controls"><button data-move="forward">▲</button><div><button data-move="left">◀</button><button data-move="back">▼</button><button data-move="right">▶</button></div><button id="touch-interact">E</button></div>
+
+    <section class="modal hidden" id="notes-modal"><div class="modal-card"><button class="modal-close" id="close-notes">×</button><div class="panel-kicker">FIELD NOTES · 01</div><h2>What the valley remembers</h2><p>“A fever that blackens the breath fears the silver leaf. Three sprigs steeped in clean spring water, then warmed beneath a bell tower.”</p><div class="note-rule"></div><div class="notes-list"><div><span>01</span><b>Hollowmere Village</b><small>Ask the healer about the sickness.</small></div><div><span>02</span><b>Silverleaf Glade</b><small>Gather three sprigs from the forest floor.</small></div><div><span>03</span><b>Greywatch Castle</b><small>Find the apothecary's still and brew the remedy.</small></div></div></div></section>
+
+    <section class="ending hidden" id="ending"><div class="ending-card"><div class="ending-star">✦</div><div class="eyebrow">A NEW DAWN · EUROPE, 1340</div><h2>The valley<br><em>will remember.</em></h2><p>From a handful of silver leaves, hope took root. The healer carries your remedy from village to village. The bells ring again.</p><div class="ending-stats"><span><small>HERBS FOUND</small><b>03</b></span><span><small>LANDS EXPLORED</small><b id="lands-count">03</b></span><span><small>DAY</small><b>01</b></span></div><button id="restart-btn" class="primary-btn">WALK THE VALLEY AGAIN <span>↗</span></button></div></section>
+  </main>
+  <script type="module" src="game.js"></script>
+</body>
+</html>
